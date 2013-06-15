@@ -1,0 +1,16 @@
+# The swap files from Vim or other editors
+.*.sw*
+*~
+
+# All made files
+*.d
+*.o
+*.eep
+*.elf
+*.bin
+*.hex
+*.lss
+*.sym
+
+# ctags files
+tags
