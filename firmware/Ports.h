@@ -6,54 +6,43 @@
 #define _PORTS_H_
 
 typedef struct {
-    uint8_t *ddr;
-    uint8_t *port;
-    uint8_t *pin;
-    uint8_t offSet;
+    volatile uint8_t *ddr;
+    volatile uint8_t *port;
+    volatile uint8_t *pin;
+    uint8_t IOoffSet;
+    enum scanDetect_t {
+        noUsed,
+        scan,
+        detect,
+    } scanDetect;
+    int8_t lineNum;
 } IOBitSet;
 
 //#define Ports_Init_Func
      //Initialize the scan & detect ports for keyboard.  
-    static inline void scanPort_Init( 
-                                         volatile uint8_t *ddr,
-                                         volatile uint8_t *port,
-                                         uint8_t offSet
-                                     )
-{
-        *ddr |= (1 << offSet);
-        *port &= ~(1 << offSet);
-}
-    static inline void detectPort_Init(
-                                           volatile uint8_t *ddr,
-                                           volatile uint8_t *port,
-                                           uint8_t offSet
-                                       )
-{
-        *ddr &= ~(1 << offSet);
-        *port |= (1 << offSet);
-}
+    static inline void scanPort_Init(IOBitSet *IOPortPtr)
+    {
+        *IOPortPtr->ddr |= (1 << IOPortPtr->IOoffSet);
+        *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet);
+    }
+    static inline void detectPort_Init(IOBitSet *IOPortPtr)
+    {
+        *IOPortPtr->ddr &= ~(1 << IOPortPtr->IOoffSet);
+        *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet);
+    }
 
     /* Let the scan IO port in low viotage, aka, 0. */
-    inline void scanPort_On(
-                               volatile uint8_t *Port,
-                               uint8_t offSet
-                           )
-    {   *Port &= ~(1 << offSet);    }
+    inline void scanPort_On(IOBitSet *IOPortPtr)
+    {   *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet);    }
      /* Let the scan IO port in high viotage, aka, 1. */
-    inline void scanPort_Off(
-                                 volatile uint8_t *Port,
-                                 uint8_t offSet
-                             )
-    {   *Port |= (1 << offSet);     }
+    inline void scanPort_Off(IOBitSet *IOPortPtr)
+    {   *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet);     }
 
     /* Return the detect Port Bit   */
     /*    Low viotage 0 means true  */
     /*   High viotage 1 means false */
-    uint8_t inline detectPort (
-                                  volatile uint8_t *Pin,
-                                  uint8_t offSet
-                              )
-    {   return !((*Pin >> offSet) & 1);     }
+    uint8_t inline detectPortRet (IOBitSet *IOPortPtr)
+    {   return !((*IOPortPtr->pin >> IOPortPtr->IOoffSet) & 1);     }
 
 //#ifdef Ports_Init_Func
 void scanLines_Init(void);
