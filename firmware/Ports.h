@@ -5,8 +5,15 @@
 #ifndef _PORTS_H_
 #define _PORTS_H_
 
+typedef struct {
+    uint8_t *ddr;
+    uint8_t *port;
+    uint8_t *pin;
+    uint8_t offSet;
+} IOBitSet;
+
 //#define Ports_Init_Func
-    /* Initialize the scan & detect ports for keyboard.  */
+     //Initialize the scan & detect ports for keyboard.  
     static inline void scanPort_Init( volatile uint8_t *ddr,
                                       volatile uint8_t *port,
                                       uint8_t offSet)   {
@@ -18,11 +25,11 @@
         *ddr &= ~(1 << offSet);
         *port |= (1 << offSet);                         }
 
-    /* Let the scan IO port in low viotage, aka, 0. */
+     //Let the scan IO port in low viotage, aka, 0. 
     inline void scanPort_On( volatile uint8_t *Port,
                                     uint8_t offSet) {
         *Port &= ~(1 << offSet);                    }
-    /* Let the scan IO port in high viotage, aka, 1. */
+     //Let the scan IO port in high viotage, aka, 1. 
     inline void scanPort_Off( volatile uint8_t *Port,
                                      uint8_t offSet) {
         *Port |= (1 << offSet);                      }

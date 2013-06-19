@@ -11,6 +11,7 @@
 *.hex
 *.lss
 *.sym
+*.map
 
 # ctags files
 tags
