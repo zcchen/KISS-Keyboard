@@ -12,9 +12,16 @@
     KEYCODE_BACKSPACE,                  KEYCODE_NONE,                       \
 }
 #define N_col1 { \
-    KEYCODE_TAB, \
+    KEYCODE_TAB,    KEYCODE_NONE,   KEYCODE_Q,      KEYCODE_W,      \
+    KEYCODE_E,      KEYCODE_R,      KEYCODE_T,      KEYCODE_Y,      \
+    KEYCODE_U,      KEYCODE_I,      KEYCODE_O,      KEYCODE_P,      \
+    KEYCODE_OPENING_BRACKET_AND_OPENING_BRACE,                      \
+    KEYCODE_CLOSING_BRACKET_AND_CLOSING_BRACE,                      \
+    KEYCODE_BACKSLASH_AND_PIPE,                     KEYCODE_NONE,   \
 }
-#define N_col2 {}
+#define N_col2 { \
+    KEYCODE_CAPS_LOCK,  KEYCODE_NONE,   \
+}
 #define N_col3 {}
 #define N_col4 {}
 #define N_col5 {}

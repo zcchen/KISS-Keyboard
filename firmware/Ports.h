@@ -11,10 +11,10 @@ typedef struct {
     volatile uint8_t *pin;
     uint8_t IOoffSet;
     enum scanDetect_t {
-        noUsed,
-        scan,
-        detect,
-    } scanDetect;
+        scanDetect_t_noUsed,
+        scanDetect_t_scan,
+        scanDetect_t_detect,
+    } scanDetectPort;
     int8_t lineNum;
 } IOBitSet;
 

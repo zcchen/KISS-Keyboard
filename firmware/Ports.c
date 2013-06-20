@@ -6,7 +6,7 @@ IOBitSet PortB0 = {     //RxLED
     .port       = &PORTB,
     .pin        = &PINB,
     .IOoffSet   = PORTB0,
-    .scanDetect = noUsed,
+    .scanDetectPort = scanDetect_t_noUsed,
     .lineNum    = -1,
 };
 IOBitSet PortB1 = {     //SCK
@@ -14,7 +14,7 @@ IOBitSet PortB1 = {     //SCK
     .port       = &PORTB,
     .pin        = &PINB,
     .IOoffSet   = PORTB1,
-    .scanDetect = detect,
+    .scanDetectPort = scanDetect_t_detect,
     .lineNum    = 0,
 };
 IOBitSet PortB2 = {     //MOSI
@@ -22,7 +22,7 @@ IOBitSet PortB2 = {     //MOSI
     .port       = &PORTB,
     .pin        = &PINB,
     .IOoffSet   = PORTB2,
-    .scanDetect = detect,
+    .scanDetectPort = scanDetect_t_detect,
     .lineNum    = 1,
 };
 IOBitSet PortB3 = {     //MISO
@@ -30,7 +30,7 @@ IOBitSet PortB3 = {     //MISO
     .port       = &PORTB,
     .pin        = &PINB,
     .IOoffSet   = PORTB3,
-    .scanDetect = detect,
+    .scanDetectPort = scanDetect_t_detect,
     .lineNum    = 2,
 };
 IOBitSet PortB4 = {     //8
@@ -38,7 +38,7 @@ IOBitSet PortB4 = {     //8
     .port       = &PORTB,
     .pin        = &PINB,
     .IOoffSet   = PORTB4,
-    .scanDetect = scan,
+    .scanDetectPort = scanDetect_t_scan,
     .lineNum    = 14,
 };
 IOBitSet PortB5 = {     //9
@@ -46,7 +46,7 @@ IOBitSet PortB5 = {     //9
     .port       = &PORTB,
     .pin        = &PINB,
     .IOoffSet   = PORTB5,
-    .scanDetect = scan,
+    .scanDetectPort = scanDetect_t_scan,
     .lineNum    = 15,
 };
 IOBitSet PortB6 = {     //10
@@ -54,7 +54,7 @@ IOBitSet PortB6 = {     //10
     .port       = &PORTB,
     .pin        = &PINB,
     .IOoffSet   = PORTB6,
-    .scanDetect = detect,
+    .scanDetectPort = scanDetect_t_detect,
     .lineNum    = 3,
 };
 IOBitSet PortB7 = {     //11
@@ -62,7 +62,7 @@ IOBitSet PortB7 = {     //11
     .port       = &PORTB,
     .pin        = &PINB,
     .IOoffSet   = PORTB7,
-    .scanDetect = detect,
+    .scanDetectPort = scanDetect_t_detect,
     .lineNum    = 4,
 };
 
@@ -71,7 +71,7 @@ IOBitSet PortC6 = {     //5
     .port       = &PORTC,
     .pin        = &PINC,
     .IOoffSet   = PORTC6,
-    .scanDetect = scan,
+    .scanDetectPort = scanDetect_t_scan,
     .lineNum    = 11,
 };
 IOBitSet PortC7 = {     //IO13, LED
@@ -79,7 +79,7 @@ IOBitSet PortC7 = {     //IO13, LED
     .port       = &PORTC,
     .pin        = &PINC,
     .IOoffSet   = PORTC7,
-    .scanDetect = noUsed,
+    .scanDetectPort = scanDetect_t_noUsed,
     .lineNum    = -1,
 };
 
@@ -88,7 +88,7 @@ IOBitSet PortD0 = {     //3
     .port       = &PORTD,
     .pin        = &PIND,
     .IOoffSet   = PORTD0,
-    .scanDetect = scan,
+    .scanDetectPort = scanDetect_t_scan,
     .lineNum    = 9,
 };
 IOBitSet PortD1 = {     //2
@@ -96,7 +96,7 @@ IOBitSet PortD1 = {     //2
     .port       = &PORTD,
     .pin        = &PIND,
     .IOoffSet   = PORTD1,
-    .scanDetect = scan,
+    .scanDetectPort = scanDetect_t_scan,
     .lineNum    = 8,
 };
 IOBitSet PortD2 = {     //0
@@ -104,7 +104,7 @@ IOBitSet PortD2 = {     //0
     .port       = &PORTD,
     .pin        = &PIND,
     .IOoffSet   = PORTD2,
-    .scanDetect = scan,
+    .scanDetectPort = scanDetect_t_scan,
     .lineNum    = 6,
 };
 IOBitSet PortD3 = {     //1
@@ -112,7 +112,7 @@ IOBitSet PortD3 = {     //1
     .port       = &PORTD,
     .pin        = &PIND,
     .IOoffSet   = PORTD3,
-    .scanDetect = scan,
+    .scanDetectPort = scanDetect_t_scan,
     .lineNum    = 7,
 };
 IOBitSet PortD4 = {     //4
@@ -120,7 +120,7 @@ IOBitSet PortD4 = {     //4
     .port       = &PORTD,
     .pin        = &PIND,
     .IOoffSet   = PORTD4,
-    .scanDetect = scan,
+    .scanDetectPort = scanDetect_t_scan,
     .lineNum    = 10,
 };
 IOBitSet PortD5 = {     //TXLED
@@ -128,7 +128,7 @@ IOBitSet PortD5 = {     //TXLED
     .port       = &PORTD,
     .pin        = &PIND,
     .IOoffSet   = PORTD5,
-    .scanDetect = noUsed,
+    .scanDetectPort = scanDetect_t_noUsed,
     .lineNum    = -1,
 };
 IOBitSet PortD6 = {     //12
@@ -136,7 +136,7 @@ IOBitSet PortD6 = {     //12
     .port       = &PORTD,
     .pin        = &PIND,
     .IOoffSet   = PORTD6,
-    .scanDetect = detect,
+    .scanDetectPort = scanDetect_t_detect,
     .lineNum    = 5,
 };
 IOBitSet PortD7 = {     //6
@@ -144,7 +144,7 @@ IOBitSet PortD7 = {     //6
     .port       = &PORTD,
     .pin        = &PIND,
     .IOoffSet   = PORTD7,
-    .scanDetect = detect,
+    .scanDetectPort = scanDetect_t_detect,
     .lineNum    = 12,
 };
 
@@ -153,7 +153,7 @@ IOBitSet PortE2 = {     //HWB
     .port       = &PORTE,
     .pin        = &PINE,
     .IOoffSet   = PORTD2,
-    .scanDetect = noUsed,
+    .scanDetectPort = scanDetect_t_noUsed,
     .lineNum    = -1,
 };
 IOBitSet PortE6 = {     //7
@@ -161,7 +161,7 @@ IOBitSet PortE6 = {     //7
     .port       = &PORTE,
     .pin        = &PINE,
     .IOoffSet   = PORTE6,
-    .scanDetect = scan,
+    .scanDetectPort = scanDetect_t_scan,
     .lineNum    = 13,
 };
 
@@ -170,7 +170,7 @@ IOBitSet PortF0 = {     //A5
     .port       = &PORTF,
     .pin        = &PINF,
     .IOoffSet   = PORTF0,
-    .scanDetect = scan,
+    .scanDetectPort = scanDetect_t_scan,
     .lineNum    = 0,
 };
 IOBitSet PortF1 = {     //A4
@@ -178,7 +178,7 @@ IOBitSet PortF1 = {     //A4
     .port       = &PORTF,
     .pin        = &PINF,
     .IOoffSet   = PORTF1,
-    .scanDetect = scan,
+    .scanDetectPort = scanDetect_t_scan,
     .lineNum    = 1,
 };
 IOBitSet PortF4 = {     //A3
@@ -186,7 +186,7 @@ IOBitSet PortF4 = {     //A3
     .port       = &PORTF,
     .pin        = &PINF,
     .IOoffSet   = PORTF4,
-    .scanDetect = scan,
+    .scanDetectPort = scanDetect_t_scan,
     .lineNum    = 2,
 };
 IOBitSet PortF5 = {     //A2
@@ -194,7 +194,7 @@ IOBitSet PortF5 = {     //A2
     .port       = &PORTF,
     .pin        = &PINF,
     .IOoffSet   = PORTF5,
-    .scanDetect = scan,
+    .scanDetectPort = scanDetect_t_scan,
     .lineNum    = 3,
 };
 IOBitSet PortF6 = {     //A1
@@ -202,7 +202,7 @@ IOBitSet PortF6 = {     //A1
     .port       = &PORTF,
     .pin        = &PINF,
     .IOoffSet   = PORTF6,
-    .scanDetect = scan,
+    .scanDetectPort = scanDetect_t_scan,
     .lineNum    = 4,
 };
 IOBitSet PortF7 = {     //A0
@@ -210,7 +210,7 @@ IOBitSet PortF7 = {     //A0
     .port       = &PORTF,
     .pin        = &PINF,
     .IOoffSet   = PORTF7,
-    .scanDetect = scan,
+    .scanDetectPort = scanDetect_t_scan,
     .lineNum    = 5,
 };
 
@@ -229,14 +229,14 @@ IOBitSet* detectPorts[6];
 
 void inline scanLines_Sort(void) {
     for (int i = 0; i < 26; i++) {
-        if (AllPorts[i]->scanDetect == scan)
+        if (AllPorts[i]->scanDetectPort == scanDetect_t_scan)
             scanPorts[AllPorts[i]->lineNum] = AllPorts[i];
     }
 }
 
 void inline detectLines_Sort(void) {
     for (int i = 0; i < 26; i++) {
-        if (AllPorts[i]->scanDetect == detect)
+        if (AllPorts[i]->scanDetectPort == scanDetect_t_detect)
             scanPorts[AllPorts[i]->lineNum] = AllPorts[i];
     }
 }
@@ -245,7 +245,7 @@ void inline detectLines_Sort(void) {
 /* Scan Port Initialization */
 void scanLines_Init(void) {
     for (int i = 0; i < 26; i++) {
-        if (AllPorts[i]->scanDetect == scan)
+        if (AllPorts[i]->scanDetectPort == scanDetect_t_scan)
             scanPort_Init(AllPorts[i]);
     }
     scanLines_Sort();
@@ -253,7 +253,7 @@ void scanLines_Init(void) {
 
 void inline scanLinesOff(void) {
     for (int i = 0; i < 26; i++) {
-        if (AllPorts[i]->scanDetect == scan)
+        if (AllPorts[i]->scanDetectPort == scanDetect_t_scan)
             scanPort_Off(AllPorts[i]);
     }
 }
@@ -286,7 +286,7 @@ void (* scanLine[])(void) = {
 /*Detect Ports as below.*/
 void detectLines_Init(void) {
     for (int i = 0; i < 26; i++) {
-        if (AllPorts[i]->scanDetect == detect)
+        if (AllPorts[i]->scanDetectPort == scanDetect_t_detect)
             scanPort_Init(AllPorts[i]);
     }
     detectLines_Sort();
