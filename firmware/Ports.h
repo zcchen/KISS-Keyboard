@@ -31,12 +31,12 @@ typedef struct {
         *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet);
     }
 
-    /* Let the scan IO port in low viotage, aka, 0. */
+    /* Let the scan IO port in low viotage, aka, 1. */
     inline void scanPort_On(IOBitSet *IOPortPtr)
-    {   *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet);    }
-     /* Let the scan IO port in high viotage, aka, 1. */
+    {   *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet);    }
+     /* Let the scan IO port in high viotage, aka, 0. */
     inline void scanPort_Off(IOBitSet *IOPortPtr)
-    {   *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet);     }
+    {   *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet);     }
 
     /* Return the detect Port Bit   */
     /*    Low viotage 0 means true  */

@@ -118,7 +118,7 @@ int main(void)
 		CDC_Task();
 		USB_USBTask();
 	/*used for Arduino Leonardo Board debug, pull down the IO 12 to exit bootloader*/
-		if (((PIND >> PIND6) & 1 )== 0)
+		if (!((PIND >> PIND6) & 1 ))
 			RunBootloader = false;
 	}
 
