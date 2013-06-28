@@ -13,5 +13,9 @@
 *.sym
 *.map
 
+# Temporary LUFA directory
+*/LUFA/
+!LUFA-130303/LUFA/
+
 # ctags files
 tags
