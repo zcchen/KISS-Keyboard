@@ -22,7 +22,7 @@ typedef struct {
 
 //#define Ports_Init_Func
      //Initialize the LED ports for keyboard.  
-    static inline void LED_Init(IOBitSet *IOPortPtr) {
+    static inline void __LED_Init__(IOBitSet *IOPortPtr) {
         *IOPortPtr->ddr |= (1 << IOPortPtr->IOoffSet);
         switch (IOPortPtr->PortUsage) {
         case IOPortUsage_t_LED_LowOn: //pull up this IO port
@@ -61,7 +61,7 @@ typedef struct {
     }
 
     /* Toggle the LED status */
-    void inline LedPort_Toggle (IOBitSet *IOPortPtr) {
+    void inline __LedPort_Toggle__ (IOBitSet *IOPortPtr) {
         *IOPortPtr->port ^= (1 << IOPortPtr->IOoffSet);
     }
 
