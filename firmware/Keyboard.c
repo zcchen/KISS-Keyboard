@@ -218,6 +218,8 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
 	/*uint8_t  LEDMask   = LEDS_NO_LEDS;*/
 	/*uint8_t* LEDReport = (uint8_t*)ReportData;*/
 
+    /*NOTE:LED设置的地方。标记LED修改的相应位置*/
+
 /*
  *    if (*LEDReport & HID_KEYBOARD_LED_NUMLOCK)
  *      LEDMask |= LEDS_LED1;

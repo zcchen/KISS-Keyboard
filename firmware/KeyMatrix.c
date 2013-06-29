@@ -41,11 +41,11 @@ KeySwitchStr KeySwitch0 = {
     .KeycodeNew         = KEYCODE_LEFT_CONTROL,
 };
 
-uint8_t N_KeyMatrix[detectLines][scanLines] = {
+uint8_t N_KeyMatrix[detectLinesNum][scanLinesNum] = {
     N_col0,  N_col1,  N_col2,  N_col3,  N_col4,  N_col5
 };
 
-uint8_t F_KeyMatrix[detectLines][scanLines] = {
+uint8_t F_KeyMatrix[detectLinesNum][scanLinesNum] = {
     F_col0,  F_col1,  F_col2,  F_col3,  F_col4,  F_col5
 };
 

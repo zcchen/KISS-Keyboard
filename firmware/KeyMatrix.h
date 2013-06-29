@@ -21,9 +21,9 @@ typedef struct {
  */
 
 //Normal key map
-extern uint8_t N_KeyMatrix[detectLines][scanLines];
+extern uint8_t N_KeyMatrix[detectLinesNum][scanLinesNum];
 //Fn key pressing key map
-extern uint8_t F_KeyMatrix[detectLines][scanLines];
+extern uint8_t F_KeyMatrix[detectLinesNum][scanLinesNum];
 //Key switches pointer array.
 extern KeySwitchStr* KeySwitchesPtr[10];
 

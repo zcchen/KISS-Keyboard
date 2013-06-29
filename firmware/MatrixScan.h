@@ -23,7 +23,7 @@ void matrixGetKeycode(uint16_t* matrixFlt,
  *    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff,
  *};
  */
-extern uint16_t matrixFlt[scanLines];
+extern uint16_t matrixFlt[scanLinesNum];
 
 extern uint8_t keysGet_NoModifier[6];
 extern uint8_t keysGet_Modifier;

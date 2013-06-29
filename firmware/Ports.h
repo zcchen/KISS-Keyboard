@@ -10,15 +10,30 @@ typedef struct {
     volatile uint8_t *port;
     volatile uint8_t *pin;
     uint8_t IOoffSet;
-    enum scanDetect_t {
-        scanDetect_t_noUsed,
-        scanDetect_t_scan,
-        scanDetect_t_detect,
-    } scanDetectPort;
+    enum IOPortUsage_t {
+        IOPortUsage_t_noUsed     = 0x00,
+        IOPortUsage_t_scan       = 0x01,
+        IOPortUsage_t_detect     = 0x02,
+        IOPortUsage_t_LED_LowOn  = 0xf3,
+        IOPortUsage_t_LED_HighOn = 0xfc,
+    } PortUsage;
     int8_t lineNum;
 } IOBitSet;
 
 //#define Ports_Init_Func
+     //Initialize the LED ports for keyboard.  
+    static inline void LED_Init(IOBitSet *IOPortPtr) {
+        *IOPortPtr->ddr |= (1 << IOPortPtr->IOoffSet);
+        switch (IOPortPtr->PortUsage) {
+        case IOPortUsage_t_LED_LowOn: //pull up this IO port
+            *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet); break;
+        case IOPortUsage_t_LED_HighOn: //pull down this IO port
+            *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet); break;
+        default:
+            *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet); break;
+        }
+    }
+
      //Initialize the scan & detect ports for keyboard.  
     static inline void scanPort_Init(IOBitSet *IOPortPtr) {
         *IOPortPtr->ddr |= (1 << IOPortPtr->IOoffSet);
@@ -30,11 +45,11 @@ typedef struct {
     }
 
     /* Let the scan IO port in low viotage, aka, 1. */
-    inline void scanPort_On(IOBitSet *IOPortPtr) {
+    void inline scanPort_On(IOBitSet *IOPortPtr) {
         *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet);
     }
      /* Let the scan IO port in high viotage, aka, 0. */
-    inline void scanPort_Off(IOBitSet *IOPortPtr) {
+    void inline scanPort_Off(IOBitSet *IOPortPtr) {
         *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet);
     }
 
@@ -45,6 +60,11 @@ typedef struct {
         return !((*IOPortPtr->pin >> IOPortPtr->IOoffSet) & 1);
     }
 
+    /* Toggle the LED status */
+    void inline LedPort_Toggle (IOBitSet *IOPortPtr) {
+        *IOPortPtr->port ^= (1 << IOPortPtr->IOoffSet);
+    }
+
 //#ifdef Ports_Init_Func
 void scanLines_Init(void);
 void detectLines_Init(void);
@@ -53,10 +73,12 @@ void detectLines_Init(void);
     //#error No lines in matrix has been defined.
 //#endif
 #define scanDetectLine
-    #define scanLines     16
-    #define detectLines   6
+    #define scanLinesNum    16
+    #define detectLinesNum  6
+    #define LedLinesNum     3
 
 extern void (* scanLine[])(void);
 extern uint8_t (* detectLine[])(void);
+extern void (* LedLine[])(void);
 
 #endif

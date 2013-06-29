@@ -6,15 +6,15 @@
  *    That means, the last bit in these is 1 if detect Line 1 gets true.
  *    8 low bits contain the active scan ports. Just as integer.
  *    That means, 0x0a means the scan line 11 is on at that time.  */
-uint16_t matrix1st[scanLines] = {
+uint16_t matrix1st[scanLinesNum] = {
     0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff,
     0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff,
 };
-uint16_t matrix2nd[scanLines] = {
+uint16_t matrix2nd[scanLinesNum] = {
     0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff,
     0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff,
 };
-uint16_t matrixFlt[scanLines] = {
+uint16_t matrixFlt[scanLinesNum] = {
     0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff,
     0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff,
 };
@@ -22,7 +22,7 @@ uint16_t matrixFlt[scanLines] = {
 bool funcKeyStatus = false;
 bool KeySwitchesBl[10];
 /*save the temperature keys detected*/
-uint8_t detectPorts_Keycodes[detectLines];
+uint8_t detectPorts_Keycodes[detectLinesNum];
 uint8_t keysGet_NoModifier[6];
 uint8_t keysGet_Modifier;
 
@@ -42,7 +42,7 @@ bool inline matrix_Init(void) {
 }
 
 void inline matrix_Status_Init(void) {
-    for (int8_t i = 0; i < scanLines; i++) {
+    for (int8_t i = 0; i < scanLinesNum ; i++) {
         matrix1st[i] = 0xffff;
         matrix2nd[i] = 0xffff;
         matrixFlt[i] = 0xffff;
@@ -50,7 +50,7 @@ void inline matrix_Status_Init(void) {
     funcKeyStatus = false;
     for (int8_t i = 0; i < 10; i++)
         KeySwitchesBl[i] = false;
-    for (int8_t i = 0; i < detectLines; i++)
+    for (int8_t i = 0; i < detectLinesNum ; i++)
         detectPorts_Keycodes[i] = 0x00;
     for (int8_t i = 0; i < 6; i++)
         keysGet_NoModifier[i] = 0x00;
@@ -60,7 +60,7 @@ void inline matrix_Status_Init(void) {
 /*detect whether any signal get from detect ports*/
 uint8_t inline detectPortsGet(void) {
     uint8_t tmpReturn = 0x00;
-    for (int i = 0; i < detectLines; i++) {
+    for (int i = 0; i < detectLinesNum ; i++) {
         tmpReturn |= (detectLine[i]() << i);
     }
     return tmpReturn;
@@ -70,7 +70,7 @@ uint8_t inline detectPortsGet(void) {
 void inline scanMatrix(uint16_t* matrixGet) {
     if (!matrix_Init_Done)
         matrix_Init();
-    for (int i = 0; i < scanLines ; i++) {
+    for (int i = 0; i < scanLinesNum ; i++) {
         scanLine[i]();
         *(matrixGet + i) = (
                         (detectPortsGet() << 8 ) | i
@@ -84,19 +84,19 @@ void scanMatrixFlt(void) {
     scanMatrix (&matrix1st[0]);
     _delay_ms(10);
     scanMatrix (&matrix2nd[0]);
-    for (int i = 0; i < scanLines ; i++) {
+    for (int i = 0; i < scanLinesNum ; i++) {
         matrixFlt[i] = matrix1st[i] & matrix2nd[i];
     }
 }
 
 void inline funcKeySwitchesGetStatus(uint16_t* matrixFltPtr) {
-    for (int i = 0; i < scanLines; i++) {
+    for (int i = 0; i < scanLinesNum ; i++) {
         uint8_t scanLineAct = (*(matrixFltPtr + i) & 0x00ff);
         uint8_t detectBits = ((*(matrixFltPtr + i) & 0xff00) >> 8);
-        if ( scanLineAct >= scanLines )
+        if ( scanLineAct >= scanLinesNum )
             return;
         else {
-            for (int i = 0; i < detectLines; i++) {
+            for (int i = 0; i < detectLinesNum ; i++) {
                 if ( ((detectBits & (1<<i)) != 0x00 ) && \
                      (N_KeyMatrix[i][scanLineAct] >= 0xf0 ) ) {
                     uint8_t j = (N_KeyMatrix[i][scanLineAct] & 0x0f);
@@ -118,16 +118,16 @@ void inline detectPorts_KeycodesFunc(uint16_t matrixFltElm,
                                      uint8_t* detectPorts_KeycodesPtr) {
     if (matrixFltElm == 0xffff)
         return; //error happened.
-    for (int i = 0; i < detectLines; i++) {
+    for (int i = 0; i < detectLinesNum ; i++) {
         detectPorts_Keycodes[i] = 0x00;
     }   // Initialize the array to return keys which has been pressed.
     uint8_t scanLineAct = (matrixFltElm & 0x00ff);
     uint8_t detectBits = ((matrixFltElm & 0xff00) >> 8);
-    if ( ( scanLineAct >= scanLines ) || \
+    if ( ( scanLineAct >= scanLinesNum ) || \
          ( detectBits == 0x00) )
         return;
     else {
-        for (int i = 0; i < detectLines; i++) {
+        for (int i = 0; i < detectLinesNum ; i++) {
             if ( (detectBits & (1<<i)) != 0x00){
                 if (funcKeyStatus)
                     *(detectPorts_KeycodesPtr + i) = \
@@ -182,10 +182,10 @@ void matrixGetKeycode(uint16_t* matrixFlt,
     scanMatrixFlt();
     funcKeySwitchesGetStatus(&matrixFlt[0]);
     int j = 0;
-    for (int i = 0; i < scanLines; i++) {
+    for (int i = 0; i < scanLinesNum ; i++) {
         detectPorts_KeycodesFunc(*(matrixFlt + i), \
                                 &detectPorts_Keycodes[0]);
-        for (int i = 0; i < detectLines; i++) {
+        for (int i = 0; i < detectLinesNum ; i++) {
             if (detectPorts_Keycodes[i] != 0x00) {
                 if ( modifierBitSet(detectPorts_Keycodes[i]) != 0x00)
                     *keysGet_ModifierPtr |= \
