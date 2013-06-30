@@ -60,6 +60,30 @@ typedef struct {
         return !((*IOPortPtr->pin >> IOPortPtr->IOoffSet) & 1);
     }
 
+    /* Turn off the LED light */
+    void inline __LedPort_Off__ (IOBitSet *IOPortPtr) {
+        switch (IOPortPtr->PortUsage) {
+        case IOPortUsage_t_LED_LowOn: //pull up this IO port
+            *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet); break;
+        case IOPortUsage_t_LED_HighOn: //pull down this IO port
+            *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet); break;
+        default:
+            *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet); break;
+        }
+    }
+
+    /* Turn on the LED light */
+    void inline __LedPort_Off__ (IOBitSet *IOPortPtr) {
+        switch (IOPortPtr->PortUsage) {
+        case IOPortUsage_t_LED_LowOn: //pull down this IO port
+            *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet); break;
+        case IOPortUsage_t_LED_HighOn: //pull up this IO port
+            *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet); break;
+        default:
+            *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet); break;
+        }
+    }
+
     /* Toggle the LED status */
     void inline __LedPort_Toggle__ (IOBitSet *IOPortPtr) {
         *IOPortPtr->port ^= (1 << IOPortPtr->IOoffSet);
