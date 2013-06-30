@@ -1,6 +1,7 @@
 # The swap files from Vim or other editors
 .*.sw*
 *~
+*.vim
 
 # All made files
 *.d

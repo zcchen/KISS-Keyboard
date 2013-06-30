@@ -1,11 +1,19 @@
+#include "Ports.h"
+
 #ifndef _KeyboardLEDs_H_
 #define _KeyboardLEDs_H_
 
 static void LEDs_Init(void) {
-    DDRC |= (1 << DDC7);
-    DDRD |= (1 << DDD5);
-    DDRB |= (1 << DDB0);
+    LedLines_Init();
 }
+
+typedef enum {
+    NumLockLED,
+    CapsLockLED,
+    ScrLockLED,
+    Compose,
+    Kana,
+} LED_t;
 
 static bool inline NumLockLED(bool onOff) {
     if (onOff)
