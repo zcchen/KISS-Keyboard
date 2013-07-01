@@ -113,6 +113,7 @@ int main(void)
 	/*used for Arduino Leonardo Board debug, pull down the IO 12 to exit bootloader*/
 	DDRD &= ~(1 << DDD6);
 	PORTD |= (1 << PORTD6);
+
 	while (RunBootloader)
 	{
 		CDC_Task();
@@ -120,6 +121,7 @@ int main(void)
 	/*used for Arduino Leonardo Board debug, pull down the IO 12 to exit bootloader*/
 		if (!((PIND >> PIND6) & 1 ))
 			RunBootloader = false;
+
 	}
 
 	/* Disconnect from the host - USB interface will be reset later along with the AVR */
