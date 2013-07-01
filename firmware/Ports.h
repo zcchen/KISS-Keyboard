@@ -61,37 +61,41 @@ typedef struct {
     }
 
     /* Turn off the LED light */
-    void inline __LedPort_Off__ (IOBitSet *IOPortPtr) {
-        switch (IOPortPtr->PortUsage) {
-        case IOPortUsage_t_LED_LowOn: //pull up this IO port
-            *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet); break;
-        case IOPortUsage_t_LED_HighOn: //pull down this IO port
-            *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet); break;
-        default:
-            *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet); break;
-        }
-    }
+    /* */
+    typedef enum {
+        LED_Toggle,
+        LED_On,
+        LED_Off,
+    } LEDctrl_t;
 
-    /* Turn on the LED light */
-    void inline __LedPort_Off__ (IOBitSet *IOPortPtr) {
-        switch (IOPortPtr->PortUsage) {
-        case IOPortUsage_t_LED_LowOn: //pull down this IO port
-            *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet); break;
-        case IOPortUsage_t_LED_HighOn: //pull up this IO port
-            *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet); break;
-        default:
-            *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet); break;
+    void inline __LedPort_Ctrl__ (IOBitSet *IOPortPtr,
+                                  LEDctrl_t LEDctrl) {
+        if (LEDctrl == LED_On) {
+            switch (IOPortPtr->PortUsage) {
+            case IOPortUsage_t_LED_LowOn: //pull down this IO port
+                *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet); break;
+            case IOPortUsage_t_LED_HighOn: //pull up this IO port
+                *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet); break;
+            default:break;
+            }
+        } else if (LEDctrl == LED_Off) {
+            switch (IOPortPtr->PortUsage) {
+            case IOPortUsage_t_LED_LowOn: //pull up this IO port
+                *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet); break;
+            case IOPortUsage_t_LED_HighOn: //pull down this IO port
+                *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet); break;
+            default:break;
+            }
         }
-    }
-
-    /* Toggle the LED status */
-    void inline __LedPort_Toggle__ (IOBitSet *IOPortPtr) {
-        *IOPortPtr->port ^= (1 << IOPortPtr->IOoffSet);
+        else if (LEDctrl == LED_Toggle) {
+            *IOPortPtr->port ^= (1 << IOPortPtr->IOoffSet);
+        }
     }
 
 //#ifdef Ports_Init_Func
 void scanLines_Init(void);
 void detectLines_Init(void);
+void LedLines_Init(void);
 //void inline scanLinesOff(void);
 //#else
     //#error No lines in matrix has been defined.
@@ -103,6 +107,6 @@ void detectLines_Init(void);
 
 extern void (* scanLine[])(void);
 extern uint8_t (* detectLine[])(void);
-extern void (* LedLine[])(void);
+extern void (* LedLine[])(LEDctrl_t LEDctrl);
 
 #endif

@@ -319,6 +319,7 @@ uint8_t (* detectLine[])(void) = {
 /*Detect Ports as above.-----END----.*/
 
 
+/* LED Ports as below. */
 void LedLines_Init(void) {
     LedLines_Sort();
     for (int i = 0; i < LedLinesNum; i++) {
@@ -326,10 +327,14 @@ void LedLines_Init(void) {
     }
 }
 
-void LedLine0(void) { __LedPort_Toggle__( LedPorts[0] );}
-void LedLine1(void) { __LedPort_Toggle__( LedPorts[1] );}
-void LedLine2(void) { __LedPort_Toggle__( LedPorts[2] );}
+void LedLine0(LEDctrl_t LEDctrl)
+    { __LedPort_Ctrl__ (LedPorts[0], LEDctrl ); }
+void LedLine1(LEDctrl_t LEDctrl)
+    { __LedPort_Ctrl__ (LedPorts[1], LEDctrl ); }
+void LedLine2(LEDctrl_t LEDctrl)
+    { __LedPort_Ctrl__ (LedPorts[2], LEDctrl ); }
 
-void (* LedLine[])(void) = {
+void (* LedLine[])(LEDctrl_t LEDctrl) = {
     LedLine0,   LedLine1,   LedLine2,
 };
+/* LED Ports as above.-----END----. */

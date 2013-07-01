@@ -92,7 +92,7 @@ void SetupHardware()
 
 	/* Hardware Initialization */
 	/*Joystick_Init();*/
-	/*LEDs_Init();*/
+    LEDs_Init();
     /*
 	 *Buttons_Init();
     TODO: It needs to write a new buttons init, due to the Buttons config change much.
