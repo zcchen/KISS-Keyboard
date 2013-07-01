@@ -60,14 +60,12 @@ typedef struct {
         return !((*IOPortPtr->pin >> IOPortPtr->IOoffSet) & 1);
     }
 
-    /* Turn off the LED light */
     /* */
     typedef enum {
         LED_Toggle,
         LED_On,
         LED_Off,
     } LEDctrl_t;
-
     void inline __LedPort_Ctrl__ (IOBitSet *IOPortPtr,
                                   LEDctrl_t LEDctrl) {
         if (LEDctrl == LED_On) {
