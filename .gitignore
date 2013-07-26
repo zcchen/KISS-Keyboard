@@ -21,3 +21,6 @@
 # ctags files
 tags
 cscope.*
+
+# doc output
+firmware/doc/output/
