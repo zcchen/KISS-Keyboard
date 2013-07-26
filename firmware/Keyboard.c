@@ -91,8 +91,8 @@ void SetupHardware()
 	clock_prescale_set(clock_div_1);
 
 	/* Hardware Initialization */
-	/*Joystick_Init();*/
-    LEDs_Init();
+    /*All Initializations of Ports will be here*/
+    LedLines_Init();
     /*
 	 *Buttons_Init();
     TODO: It needs to write a new buttons init, due to the Buttons config change much.
@@ -103,22 +103,18 @@ void SetupHardware()
 /** Event handler for the library USB Connection event. */
 void EVENT_USB_Device_Connect(void)
 {
-	/*LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);*/
-    /*
-     * LEDs_Init();
-     *NumLockLED(true);
-     *CapsLockLED(false);
-     *CapsLockLED(true);
-     *ScrLockLED(true);
-     */
+    LEDs_Init();
     scanLines_Init();
-    scanLine[0]();
+    /*scanLine[0]();*/
 }
 
 /** Event handler for the library USB Disconnection event. */
 void EVENT_USB_Device_Disconnect(void)
 {
 	/*LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);*/
+    LedLine[0](LED_Off);
+    LedLine[1](LED_Off);
+    LedLine[2](LED_Off);
 }
 
 /** Event handler for the library USB Configuration Changed event. */
@@ -216,20 +212,16 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
                                           const uint16_t ReportSize)
 {
 	/*uint8_t  LEDMask   = LEDS_NO_LEDS;*/
-	/*uint8_t* LEDReport = (uint8_t*)ReportData;*/
+    uint8_t* LEDReport = (uint8_t*)ReportData;
 
     /*NOTE:LED设置的地方。标记LED修改的相应位置*/
 
-/*
- *    if (*LEDReport & HID_KEYBOARD_LED_NUMLOCK)
- *      LEDMask |= LEDS_LED1;
- *
- *    if (*LEDReport & HID_KEYBOARD_LED_CAPSLOCK)
- *      LEDMask |= LEDS_LED3;
- *
- *    if (*LEDReport & HID_KEYBOARD_LED_SCROLLLOCK)
- *      LEDMask |= LEDS_LED4;
- */
+    if (*LEDReport & HID_KEYBOARD_LED_NUMLOCK)
+        LedLine[NumLockLED](LED_Toggle);
+    if (*LEDReport & HID_KEYBOARD_LED_CAPSLOCK)
+        LedLine[CapsLockLED](LED_Toggle);
+    if (*LEDReport & HID_KEYBOARD_LED_SCROLLLOCK)
+        LedLine[ScrLockLED](LED_Toggle);
 
 	/*LEDs_SetAllLEDs(LEDMask);*/
 }
