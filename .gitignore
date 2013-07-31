@@ -22,5 +22,5 @@
 tags
 cscope.*
 
-# doc output
-firmware/doc/output/
+# doc
+firmware/doc/
