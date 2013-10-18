@@ -5,7 +5,7 @@
 #ifndef _PORTS_H_
 #define _PORTS_H_
 
-typedef struct {
+struct IOBitSet {
     volatile uint8_t *ddr;
     volatile uint8_t *port;
     volatile uint8_t *pin;
@@ -18,77 +18,78 @@ typedef struct {
         IOPortUsage_t_LED_HighOn = 0xfc,
     } PortUsage;
     int8_t lineNum;
-} IOBitSet;
+} ;
 
 //#define Ports_Init_Func
-     //Initialize the LED ports for keyboard.  
-    static inline void __LED_Init__(IOBitSet *IOPortPtr) {
-        *IOPortPtr->ddr |= (1 << IOPortPtr->IOoffSet);
+//Initialize the LED ports for keyboard.  
+static inline void __LED_Init__(struct IOBitSet *IOPortPtr) {
+    *IOPortPtr->ddr |= (1 << IOPortPtr->IOoffSet);
+    switch (IOPortPtr->PortUsage) {
+    case IOPortUsage_t_LED_LowOn: //pull up this IO port
+        *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet); break;
+    case IOPortUsage_t_LED_HighOn: //pull down this IO port
+        *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet); break;
+    default:
+        *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet); break;
+    }
+}
+
+//Initialize the scan & detect ports for keyboard.  
+static inline void scanPort_Init(struct IOBitSet *IOPortPtr) {
+    *IOPortPtr->ddr |= (1 << IOPortPtr->IOoffSet);
+    *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet);
+}
+static inline void detectPort_Init(struct IOBitSet *IOPortPtr) {
+    *IOPortPtr->ddr &= ~(1 << IOPortPtr->IOoffSet);
+    *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet);
+}
+
+/* Let the scan IO port in low viotage, aka, 1. */
+void inline scanPort_On(struct IOBitSet *IOPortPtr) {
+    *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet);
+}
+ /* Let the scan IO port in high viotage, aka, 0. */
+void inline scanPort_Off(struct IOBitSet *IOPortPtr) {
+    *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet);
+}
+
+/* Return the detect Port Bit   */
+/*    Low viotage 0 means true  */
+/*   High viotage 1 means false */
+uint8_t inline detectPortRet (struct IOBitSet *IOPortPtr) {
+    return !((*IOPortPtr->pin >> IOPortPtr->IOoffSet) & 1);
+}
+
+/* */
+enum LEDctrl_t {
+    LED_Toggle,
+    LED_On,
+    LED_Off,
+} ;
+
+void inline __LedPort_Ctrl__ (struct IOBitSet *IOPortPtr,
+                              enum LEDctrl_t LEDctrl) {
+    if (LEDctrl == LED_On) {
+        switch (IOPortPtr->PortUsage) {
+        case IOPortUsage_t_LED_LowOn: //pull down this IO port
+            *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet); break;
+        case IOPortUsage_t_LED_HighOn: //pull up this IO port
+            *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet); break;
+        default:break;
+        }
+    } else if (LEDctrl == LED_Off) {
         switch (IOPortPtr->PortUsage) {
         case IOPortUsage_t_LED_LowOn: //pull up this IO port
             *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet); break;
         case IOPortUsage_t_LED_HighOn: //pull down this IO port
             *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet); break;
-        default:
-            *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet); break;
+        default:break;
         }
     }
-
-     //Initialize the scan & detect ports for keyboard.  
-    static inline void scanPort_Init(IOBitSet *IOPortPtr) {
-        *IOPortPtr->ddr |= (1 << IOPortPtr->IOoffSet);
-        *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet);
+    else if (LEDctrl == LED_Toggle) {
+        *IOPortPtr->port ^= (1 << IOPortPtr->IOoffSet);
     }
-    static inline void detectPort_Init(IOBitSet *IOPortPtr) {
-        *IOPortPtr->ddr &= ~(1 << IOPortPtr->IOoffSet);
-        *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet);
-    }
-
-    /* Let the scan IO port in low viotage, aka, 1. */
-    void inline scanPort_On(IOBitSet *IOPortPtr) {
-        *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet);
-    }
-     /* Let the scan IO port in high viotage, aka, 0. */
-    void inline scanPort_Off(IOBitSet *IOPortPtr) {
-        *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet);
-    }
-
-    /* Return the detect Port Bit   */
-    /*    Low viotage 0 means true  */
-    /*   High viotage 1 means false */
-    uint8_t inline detectPortRet (IOBitSet *IOPortPtr) {
-        return !((*IOPortPtr->pin >> IOPortPtr->IOoffSet) & 1);
-    }
-
-    /* */
-    typedef enum {
-        LED_Toggle,
-        LED_On,
-        LED_Off,
-    } LEDctrl_t;
-    void inline __LedPort_Ctrl__ (IOBitSet *IOPortPtr,
-                                  LEDctrl_t LEDctrl) {
-        if (LEDctrl == LED_On) {
-            switch (IOPortPtr->PortUsage) {
-            case IOPortUsage_t_LED_LowOn: //pull down this IO port
-                *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet); break;
-            case IOPortUsage_t_LED_HighOn: //pull up this IO port
-                *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet); break;
-            default:break;
-            }
-        } else if (LEDctrl == LED_Off) {
-            switch (IOPortPtr->PortUsage) {
-            case IOPortUsage_t_LED_LowOn: //pull up this IO port
-                *IOPortPtr->port |= (1 << IOPortPtr->IOoffSet); break;
-            case IOPortUsage_t_LED_HighOn: //pull down this IO port
-                *IOPortPtr->port &= ~(1 << IOPortPtr->IOoffSet); break;
-            default:break;
-            }
-        }
-        else if (LEDctrl == LED_Toggle) {
-            *IOPortPtr->port ^= (1 << IOPortPtr->IOoffSet);
-        }
-    }
+}
 
 //#ifdef Ports_Init_Func
 void scanLines_Init(void);
@@ -105,6 +106,6 @@ void LedLines_Init(void);
 
 extern void (* scanLine[])(void);
 extern uint8_t (* detectLine[])(void);
-extern void (* LedLine[])(LEDctrl_t LEDctrl);
+extern void (* LedLine[])(enum LEDctrl_t LEDctrl);
 
 #endif

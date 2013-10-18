@@ -1,7 +1,7 @@
 #include "Ports.h"
 
 /*Setup the struct Ports below*/
-IOBitSet PortB0 = {     //RxLED
+struct IOBitSet PortB0 = {     //RxLED
     .ddr        = &DDRB,
     .port       = &PORTB,
     .pin        = &PINB,
@@ -9,7 +9,7 @@ IOBitSet PortB0 = {     //RxLED
     .PortUsage  = IOPortUsage_t_LED_LowOn,
     .lineNum    = 2,
 };
-IOBitSet PortB1 = {     //SCK
+struct IOBitSet PortB1 = {     //SCK
     .ddr        = &DDRB,
     .port       = &PORTB,
     .pin        = &PINB,
@@ -17,7 +17,7 @@ IOBitSet PortB1 = {     //SCK
     .PortUsage  = IOPortUsage_t_detect,
     .lineNum    = 0,
 };
-IOBitSet PortB2 = {     //MOSI
+struct IOBitSet PortB2 = {     //MOSI
     .ddr        = &DDRB,
     .port       = &PORTB,
     .pin        = &PINB,
@@ -25,7 +25,7 @@ IOBitSet PortB2 = {     //MOSI
     .PortUsage  = IOPortUsage_t_detect,
     .lineNum    = 1,
 };
-IOBitSet PortB3 = {     //MISO
+struct IOBitSet PortB3 = {     //MISO
     .ddr        = &DDRB,
     .port       = &PORTB,
     .pin        = &PINB,
@@ -33,7 +33,7 @@ IOBitSet PortB3 = {     //MISO
     .PortUsage  = IOPortUsage_t_detect,
     .lineNum    = 2,
 };
-IOBitSet PortB4 = {     //8
+struct IOBitSet PortB4 = {     //8
     .ddr        = &DDRB,
     .port       = &PORTB,
     .pin        = &PINB,
@@ -41,7 +41,7 @@ IOBitSet PortB4 = {     //8
     .PortUsage  = IOPortUsage_t_scan,
     .lineNum    = 14,
 };
-IOBitSet PortB5 = {     //9
+struct IOBitSet PortB5 = {     //9
     .ddr        = &DDRB,
     .port       = &PORTB,
     .pin        = &PINB,
@@ -49,7 +49,7 @@ IOBitSet PortB5 = {     //9
     .PortUsage  = IOPortUsage_t_scan,
     .lineNum    = 15,
 };
-IOBitSet PortB6 = {     //10
+struct IOBitSet PortB6 = {     //10
     .ddr        = &DDRB,
     .port       = &PORTB,
     .pin        = &PINB,
@@ -57,7 +57,7 @@ IOBitSet PortB6 = {     //10
     .PortUsage  = IOPortUsage_t_detect,
     .lineNum    = 3,
 };
-IOBitSet PortB7 = {     //11
+struct IOBitSet PortB7 = {     //11
     .ddr        = &DDRB,
     .port       = &PORTB,
     .pin        = &PINB,
@@ -66,7 +66,7 @@ IOBitSet PortB7 = {     //11
     .lineNum    = 4,
 };
 
-IOBitSet PortC6 = {     //5
+struct IOBitSet PortC6 = {     //5
     .ddr        = &DDRC,
     .port       = &PORTC,
     .pin        = &PINC,
@@ -74,7 +74,7 @@ IOBitSet PortC6 = {     //5
     .PortUsage  = IOPortUsage_t_scan,
     .lineNum    = 11,
 };
-IOBitSet PortC7 = {     //IO13, LED
+struct IOBitSet PortC7 = {     //IO13, LED
     .ddr        = &DDRC,
     .port       = &PORTC,
     .pin        = &PINC,
@@ -83,7 +83,7 @@ IOBitSet PortC7 = {     //IO13, LED
     .lineNum    = 0,
 };
 
-IOBitSet PortD0 = {     //3
+struct IOBitSet PortD0 = {     //3
     .ddr        = &DDRD,
     .port       = &PORTD,
     .pin        = &PIND,
@@ -91,7 +91,7 @@ IOBitSet PortD0 = {     //3
     .PortUsage  = IOPortUsage_t_scan,
     .lineNum    = 9,
 };
-IOBitSet PortD1 = {     //2
+struct IOBitSet PortD1 = {     //2
     .ddr        = &DDRD,
     .port       = &PORTD,
     .pin        = &PIND,
@@ -99,7 +99,7 @@ IOBitSet PortD1 = {     //2
     .PortUsage  = IOPortUsage_t_scan,
     .lineNum    = 8,
 };
-IOBitSet PortD2 = {     //0
+struct IOBitSet PortD2 = {     //0
     .ddr        = &DDRD,
     .port       = &PORTD,
     .pin        = &PIND,
@@ -107,7 +107,7 @@ IOBitSet PortD2 = {     //0
     .PortUsage  = IOPortUsage_t_scan,
     .lineNum    = 6,
 };
-IOBitSet PortD3 = {     //1
+struct IOBitSet PortD3 = {     //1
     .ddr        = &DDRD,
     .port       = &PORTD,
     .pin        = &PIND,
@@ -115,7 +115,7 @@ IOBitSet PortD3 = {     //1
     .PortUsage  = IOPortUsage_t_scan,
     .lineNum    = 7,
 };
-IOBitSet PortD4 = {     //4
+struct IOBitSet PortD4 = {     //4
     .ddr        = &DDRD,
     .port       = &PORTD,
     .pin        = &PIND,
@@ -123,7 +123,7 @@ IOBitSet PortD4 = {     //4
     .PortUsage  = IOPortUsage_t_scan,
     .lineNum    = 10,
 };
-IOBitSet PortD5 = {     //TXLED
+struct IOBitSet PortD5 = {     //TXLED
     .ddr        = &DDRD,
     .port       = &PORTD,
     .pin        = &PIND,
@@ -131,7 +131,7 @@ IOBitSet PortD5 = {     //TXLED
     .PortUsage  = IOPortUsage_t_LED_LowOn,
     .lineNum    = 1,
 };
-IOBitSet PortD6 = {     //12
+struct IOBitSet PortD6 = {     //12
     .ddr        = &DDRD,
     .port       = &PORTD,
     .pin        = &PIND,
@@ -139,7 +139,7 @@ IOBitSet PortD6 = {     //12
     .PortUsage  = IOPortUsage_t_detect,
     .lineNum    = 5,
 };
-IOBitSet PortD7 = {     //6
+struct IOBitSet PortD7 = {     //6
     .ddr        = &DDRD,
     .port       = &PORTD,
     .pin        = &PIND,
@@ -148,7 +148,7 @@ IOBitSet PortD7 = {     //6
     .lineNum    = 12,
 };
 
-IOBitSet PortE2 = {     //HWB
+struct IOBitSet PortE2 = {     //HWB
     .ddr        = &DDRE,
     .port       = &PORTE,
     .pin        = &PINE,
@@ -156,7 +156,7 @@ IOBitSet PortE2 = {     //HWB
     .PortUsage  = IOPortUsage_t_noUsed,
     .lineNum    = -1,
 };
-IOBitSet PortE6 = {     //7
+struct IOBitSet PortE6 = {     //7
     .ddr        = &DDRE,
     .port       = &PORTE,
     .pin        = &PINE,
@@ -165,7 +165,7 @@ IOBitSet PortE6 = {     //7
     .lineNum    = 13,
 };
 
-IOBitSet PortF0 = {     //A5
+struct IOBitSet PortF0 = {     //A5
     .ddr        = &DDRF,
     .port       = &PORTF,
     .pin        = &PINF,
@@ -173,7 +173,7 @@ IOBitSet PortF0 = {     //A5
     .PortUsage  = IOPortUsage_t_scan,
     .lineNum    = 0,
 };
-IOBitSet PortF1 = {     //A4
+struct IOBitSet PortF1 = {     //A4
     .ddr        = &DDRF,
     .port       = &PORTF,
     .pin        = &PINF,
@@ -181,7 +181,7 @@ IOBitSet PortF1 = {     //A4
     .PortUsage  = IOPortUsage_t_scan,
     .lineNum    = 1,
 };
-IOBitSet PortF4 = {     //A3
+struct IOBitSet PortF4 = {     //A3
     .ddr        = &DDRF,
     .port       = &PORTF,
     .pin        = &PINF,
@@ -189,7 +189,7 @@ IOBitSet PortF4 = {     //A3
     .PortUsage  = IOPortUsage_t_scan,
     .lineNum    = 2,
 };
-IOBitSet PortF5 = {     //A2
+struct IOBitSet PortF5 = {     //A2
     .ddr        = &DDRF,
     .port       = &PORTF,
     .pin        = &PINF,
@@ -197,7 +197,7 @@ IOBitSet PortF5 = {     //A2
     .PortUsage  = IOPortUsage_t_scan,
     .lineNum    = 3,
 };
-IOBitSet PortF6 = {     //A1
+struct IOBitSet PortF6 = {     //A1
     .ddr        = &DDRF,
     .port       = &PORTF,
     .pin        = &PINF,
@@ -205,7 +205,7 @@ IOBitSet PortF6 = {     //A1
     .PortUsage  = IOPortUsage_t_scan,
     .lineNum    = 4,
 };
-IOBitSet PortF7 = {     //A0
+struct IOBitSet PortF7 = {     //A0
     .ddr        = &DDRF,
     .port       = &PORTF,
     .pin        = &PINF,
@@ -214,7 +214,7 @@ IOBitSet PortF7 = {     //A0
     .lineNum    = 5,
 };
 
-IOBitSet* AllPorts[26] = {
+struct IOBitSet* AllPorts[26] = {
     &PortB0,    &PortB1,    &PortB2,    &PortB3,
     &PortB4,    &PortB5,    &PortB6,    &PortB7,
     &PortC6,    &PortC7,
@@ -224,9 +224,9 @@ IOBitSet* AllPorts[26] = {
     &PortF0,    &PortF1,
     &PortF4,    &PortF5,    &PortF6,    &PortF7,
 };
-IOBitSet* scanPorts[scanLinesNum];
-IOBitSet* detectPorts[detectLinesNum];
-IOBitSet* LedPorts[LedLinesNum];
+struct IOBitSet* scanPorts[scanLinesNum];
+struct IOBitSet* detectPorts[detectLinesNum];
+struct IOBitSet* LedPorts[LedLinesNum];
 
 void inline scanLines_Sort(void) {
     for (int i = 0; i < 26; i++) {
@@ -327,14 +327,14 @@ void LedLines_Init(void) {
     }
 }
 
-void LedLine0(LEDctrl_t LEDctrl)
+void LedLine0(enum LEDctrl_t LEDctrl)
     { __LedPort_Ctrl__ (LedPorts[0], LEDctrl ); }
-void LedLine1(LEDctrl_t LEDctrl)
+void LedLine1(enum LEDctrl_t LEDctrl)
     { __LedPort_Ctrl__ (LedPorts[1], LEDctrl ); }
-void LedLine2(LEDctrl_t LEDctrl)
+void LedLine2(enum LEDctrl_t LEDctrl)
     { __LedPort_Ctrl__ (LedPorts[2], LEDctrl ); }
 
-void (* LedLine[])(LEDctrl_t LEDctrl) = {
+void (* LedLine[])(enum LEDctrl_t LEDctrl) = {
     LedLine0,   LedLine1,   LedLine2,
 };
 /* LED Ports as above.-----END----. */

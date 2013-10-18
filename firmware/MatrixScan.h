@@ -2,6 +2,7 @@
 //#include "Keycodes.h"
 #include "KeyMatrix.h"
 #include <util/delay.h>
+#include <stdbool.h>
 #include <inttypes.h>
 
 #ifndef _MATRIX_SCAN_H_
